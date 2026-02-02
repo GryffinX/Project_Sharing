@@ -16,47 +16,50 @@ export default function RecipesView() {
     const recipesPerPage = 10;
 
     useEffect(() => {
-        let tempRecipes = [];
+    // 1️⃣ Load STATIC projects first
+    fetch('/Data.json')
+        .then(res => res.json())
+        .then(data => {
+            const staticProjects = data.recipes.map(item => ({
+                id: item.id,
+                name: item.name,
+                preparationTime: item.preparationTime,
+                ingredients: item.ingredients,
+                process: item.process,
+                image: item.image,
+            }));
 
-        fetch('/Data.json')
-            .then(res => res.json())
-            .then(data => {
-                data.recipes.forEach(item => {
-                    tempRecipes.push({
-                        id: item.id,
-                        name: item.name,
-                        preparationTime: item.preparationTime,
-                        ingredients: item.ingredients,
-                        process: item.process,
-                        image: item.image,
-                    });
+            // ✅ SET STATIC PROJECTS IMMEDIATELY
+            setRecipes(staticProjects);
+
+            // 2️⃣ THEN try loading backend projects
+            fetch(`${import.meta.env.VITE_API_URL}/recipes`)
+                .then(res => res.json())
+                .then(apiData => {
+                    if (apiData?.recipes?.length > 0) {
+                        const backendProjects = apiData.recipes.map(item => ({
+                            id: item._id,
+                            name: item.dishName,
+                            preparationTime: item.timeTaken,
+                            ingredients: item.ingredients,
+                            process: item.process,
+                            image: '/images/Dummy.jpeg',
+                        }));
+
+                        // ✅ APPEND backend projects (don’t overwrite)
+                        setRecipes(prev => [...prev, ...backendProjects]);
+                    }
+                })
+                .catch(() => {
+                    // backend optional → ignore errors safely
                 });
+        });
 
-                fetch(`${import.meta.env.VITE_API_URL}/recipes`)
-                    .then(res => res.json())
-                    .then(apiData => {
-                        apiData.recipes.forEach(item => {
-                            tempRecipes.push({
-                                id: item._id,
-                                name: item.dishName,
-                                preparationTime: item.timeTaken,
-                                ingredients: item.ingredients,
-                                process: item.process,
-                                image: '/images/Dummy.jpeg',
-                            });
-                        });
-                        setRecipes(tempRecipes);
-                    })
-                    .catch(() => {
-                        // backend optional – still show static projects
-                        setRecipes(tempRecipes);
-                    });
-            });
+    if (localStorage.getItem('user-access-token')) {
+        setUserLoggedIn(true);
+    }
+}, []);
 
-        if (localStorage.getItem('user-access-token')) {
-            setUserLoggedIn(true);
-        }
-    }, []);
 
     /* 🔥 FIXED SEARCH LOGIC */
     const filteredRecipes = searchQuery
