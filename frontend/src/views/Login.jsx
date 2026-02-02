@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
-
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -22,31 +21,47 @@ export default function Login() {
                     localStorage.setItem("user-access-token", res?.data?.accessToken);
                     alert("Login Successful");
                     navigate('/');
-                }
-                else {
-                    alert("No user found with this email,Please SignUp");
+                } else {
+                    alert("No user found with this email, Please SignUp");
                     navigate("/SignUp");
                 }
             })
             .catch((error) => {
                 console.log(error);
-                alert("No user found with this email,Please SignUp");
+                alert("No user found with this email, Please SignUp");
                 navigate("/SignUp");
             });
     };
 
     return (
-
         <div className="loginBody">
-            <div className="loginContainer">
-                <div className="loginCard">
-                    <div className="loginHeader">Login</div>
-                    <form className="form" onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-                        <input type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                        <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                        <button type="submit">Login</button>
-                    </form>
-                </div>
+            <div className="loginCard">
+                <h2 className="loginHeader">Welcome back 👋</h2>
+                <p className="loginSubtext">
+                    Sign in to continue sharing your projects
+                </p>
+
+                <form className="form" onSubmit={handleLogin}>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email address"
+                        required
+                    />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                    />
+                    <button type="submit">Sign in</button>
+                </form>
+
+                <p className="loginFooter">
+                    New here? <Link to="/SignUp">Create an account</Link>
+                </p>
             </div>
         </div>
     );
