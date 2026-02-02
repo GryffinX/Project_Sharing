@@ -1,52 +1,56 @@
 {
   "recipes": [
     {
-      "id" : "1",
-      "image": "/images/spaghetti.jpg",
-      "name": "Spaghetti Bolognese",
-      "preparationTime": "30 minutes",
-      "ingredients": "Spaghetti, ground beef, tomato sauce, onions, garlic, olive oil, salt, pepper",
-      "process": "Boil spaghetti. Cook ground beef with onions and garlic. Add tomato sauce and simmer. Mix with spaghetti and serve hot."
+      "id": 1,
+      "name": "AI Resume Analyzer",
+      "preparationTime": "3 weeks",
+      "ingredients": ["React", "Node.js", "OpenAI API", "Tailwind"],
+      "process": [
+        "Upload resume as PDF",
+        "Analyze skills and keywords",
+        "Score resume against job description",
+        "Generate improvement suggestions"
+      ],
+      "image": "/images/ai-resume.png"
     },
     {
-      "id" : "2",
-      "image": "/images/Pancakes.jpeg",
-      "name": "Classic Pancakes",
-      "preparationTime": "20 minutes",
-      "ingredients": "Flour, eggs, milk, baking powder, sugar, butter, salt",
-      "process": "Mix all ingredients into a smooth batter. Pour on a hot griddle and cook until golden on both sides. Serve with syrup."
+      "id": 2,
+      "name": "Voice-to-Form Platform",
+      "preparationTime": "Hackathon Project",
+      "ingredients": ["Python", "Whisper", "FastAPI", "React"],
+      "process": [
+        "Speech input in Indian languages",
+        "Convert voice to structured text",
+        "Auto-fill government forms",
+        "Export as PDF"
+      ],
+      "image": "/images/voice-form.png"
     },
     {
-      "id" : "3",
-      "image": "/images/chickenCurry.jpeg",
-      "name": "Chicken Curry",
-      "preparationTime": "45 minutes",
-      "ingredients": "Chicken, onions, tomatoes, garlic, ginger, spices, oil, salt",
-      "process": "Sauté onions, garlic, and ginger. Add spices and chicken. Cook until browned. Add tomatoes and simmer until chicken is tender."
+      "id": 3,
+      "name": "Smart Attendance System",
+      "preparationTime": "2 months",
+      "ingredients": ["OpenCV", "Python", "Flask", "MongoDB"],
+      "process": [
+        "Face recognition via webcam",
+        "Real-time attendance marking",
+        "Admin dashboard",
+        "CSV export"
+      ],
+      "image": "/images/attendance.png"
     },
     {
-      "id" : "4",
-      "image": "/images/FreshVegetableSalad.jpg",
-      "name": "Fresh Vegetable Salad",
-      "preparationTime": "10 minutes",
-      "ingredients": "Lettuce, tomatoes, cucumbers, carrots, olive oil, lemon juice, salt, pepper",
-      "process": "Chop all vegetables. Mix in a bowl. Drizzle with olive oil and lemon juice. Season with salt and pepper."
-    },
-    {
-      "id" : "5",
-      "image": "/images/VegetableFriedRice.jpeg",
-      "name": "Vegetable Fried Rice",
-      "preparationTime": "25 minutes",
-      "ingredients": "Cooked rice, carrots, peas, bell peppers, soy sauce, garlic, oil",
-      "process": "Heat oil, sauté garlic and vegetables. Add rice and soy sauce. Stir-fry for a few minutes and serve hot."
-    },
-    {
-      "id" : "6",
-      "image": "/images/ChocolateCake.jpg",
-      "name": "Chocolate Cake",
-      "preparationTime": "1 hour",
-      "ingredients": "Flour, cocoa powder, eggs, sugar, butter, baking powder, milk",
-      "process": "Mix dry and wet ingredients separately. Combine and pour into a greased pan. Bake at 180°C for 35-40 minutes."
+      "id": 4,
+      "name": "ProjectHub (This Platform)",
+      "preparationTime": "In progress",
+      "ingredients": ["React", "Vite", "Express", "MongoDB"],
+      "process": [
+        "Auth system",
+        "Project discovery page",
+        "User dashboards",
+        "Project sharing & viewing"
+      ],
+      "image": "/images/projecthub.png"
     }
   ]
 }

@@ -4,141 +4,187 @@ import { useNavigate } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import RecipeViewCard from '../components/RecipeViewCard';
 
-
-
-
 export default function RecipesView() {
-
     const navigate = useNavigate();
+
     const [Recipes, setRecipes] = useState([]);
     const [currentRecipe, setCurrentRecipe] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const [filteredRecipes, setFilteredRecipes] = useState([]);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+
     const recipesPerPage = 10;
-
-
-
 
     useEffect(() => {
         let tempRecipes = [];
-        fetch("/Data.json")
-            .then(async (res) => {
-                const data = await res.json();
-                data.recipes.forEach((element) => {
-                    tempRecipes.push({ id: element.id, name: element.name, preparationTime: element.preparationTime, ingredients: element.ingredients, process: element.process, image: element.image })
+
+        fetch('/Data.json')
+            .then(res => res.json())
+            .then(data => {
+                data.recipes.forEach(item => {
+                    tempRecipes.push({
+                        id: item.id,
+                        name: item.name,
+                        preparationTime: item.preparationTime,
+                        ingredients: item.ingredients,
+                        process: item.process,
+                        image: item.image,
+                    });
                 });
+
                 fetch(`${import.meta.env.VITE_API_URL}/recipes`)
-                    .then(async (res) => {
-                        const data = await res.json();
-                        data.recipes.forEach((element) => {
-                            tempRecipes.push({ id: element._id, name: element.dishName, preparationTime: element.timeTaken, ingredients: element.ingredients, process: element.process, image: "/images/Dummy.jpeg" })
+                    .then(res => res.json())
+                    .then(apiData => {
+                        apiData.recipes.forEach(item => {
+                            tempRecipes.push({
+                                id: item._id,
+                                name: item.dishName,
+                                preparationTime: item.timeTaken,
+                                ingredients: item.ingredients,
+                                process: item.process,
+                                image: '/images/Dummy.jpeg',
+                            });
                         });
                         setRecipes(tempRecipes);
                     })
-            })
+                    .catch(() => {
+                        // backend optional – still show static projects
+                        setRecipes(tempRecipes);
+                    });
+            });
 
-        if (localStorage.getItem("user-access-token")) {
+        if (localStorage.getItem('user-access-token')) {
             setUserLoggedIn(true);
         }
+    }, []);
 
-    }, [])
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const results = Recipes.filter((recipe) =>
-            recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setFilteredRecipes(results);
-    };
-
-
-    const handleLogin = () => {
-        navigate('/Login');
-    }
-    const handleViewRecipe = (recipe) => {
-        setCurrentRecipe(recipe);
-    }
-
-    const handleSignUp = () => {
-        navigate('/SignUp');
-    }
-    const handleMyRecipes = () => {
-        if (userLoggedIn) {
-            navigate('/MyWorkView');
-        }
-        else {
-            navigate('/Login');
-        }
-
-    }
-    const handleLogOut = () => {
-        localStorage.removeItem("user-access-token");
-        setUserLoggedIn(false);
-    }
+    /* 🔥 FIXED SEARCH LOGIC */
+    const filteredRecipes = searchQuery
+        ? Recipes.filter(recipe =>
+              recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : Recipes;
 
     const indexOfLastRecipe = currentPage * recipesPerPage;
     const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-    const currentRecipes = (searchQuery ? filteredRecipes : Recipes).slice(indexOfFirstRecipe, indexOfLastRecipe);
 
-    const handleNextPage = () => {
-        setCurrentPage((prev) => prev + 1);
+    const currentRecipes = filteredRecipes.slice(
+        indexOfFirstRecipe,
+        indexOfLastRecipe
+    );
+
+    const handleMyRecipes = () => {
+        userLoggedIn ? navigate('/MyWorkView') : navigate('/Login');
     };
 
-    const handlePrevPage = () => {
-        setCurrentPage((prev) => prev - 1);
+    const handleLogOut = () => {
+        localStorage.removeItem('user-access-token');
+        setUserLoggedIn(false);
     };
-
-
 
     return (
         <>
-            <div className='navHeader'>
-                <img className='logo' src="/images/logo.jpg" alt="logo" />
-                <h1>Bite Book</h1>
-                <div className='searchContainer'>
+            {/* HEADER */}
+            <div className="navHeader">
+                <h1 className="brand">ProjectHub</h1>
+
+                <div className="searchContainer">
                     <input
                         className="search"
                         type="text"
-                        placeholder='Search for recipe'
+                        placeholder="Search projects"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            setCurrentPage(1);
+                        }}
                     />
+                    <span className="searchIcon">⌕</span>
+                </div>
 
-                    <button className='searchButton' onClick={handleSearch}>
-                        <img className='searchButton' src="/images/search.jpg" alt="search" />
+                <div className="navActions">
+                    <button className="headButton" onClick={handleMyRecipes}>
+                        My Projects
                     </button>
 
+                    {!userLoggedIn && (
+                        <button
+                            className="headButton"
+                            onClick={() => navigate('/Login')}
+                        >
+                            Login
+                        </button>
+                    )}
 
+                    {!userLoggedIn && (
+                        <button
+                            className="headButton"
+                            onClick={() => navigate('/SignUp')}
+                        >
+                            Sign up
+                        </button>
+                    )}
+
+                    {userLoggedIn && (
+                        <button
+                            className="headButton"
+                            onClick={handleLogOut}
+                        >
+                            Logout
+                        </button>
+                    )}
                 </div>
-                <button className='headButton' onClick={handleMyRecipes}>My Recipes</button>
+            </div>
 
-                {!userLoggedIn && <button onClick={handleLogin} className='headButton'>LogIn</button>}
-                {!userLoggedIn && <button onClick={handleSignUp} className='headButton'>SignUp</button>}
-                {userLoggedIn && <button onClick={handleLogOut} className='headButton'>LogOut</button>}
+            {/* HERO */}
+            <section className="heroSection">
+                <h2>Discover Developer Projects</h2>
+                <p>Explore real-world builds, experiments, and hackathon projects.</p>
+            </section>
+
+            {/* PROJECT GRID */}
+            <div className="recipeContainer">
+                {currentRecipes.length > 0 ? (
+                    currentRecipes.map((item, index) => (
+                        <RecipeCard
+                            key={index}
+                            recipe={item}
+                            onView={setCurrentRecipe}
+                        />
+                    ))
+                ) : (
+                    <p className="notFound">No projects found.</p>
+                )}
             </div>
-            <div className='recipeContainer'>
-                {
-                    currentRecipes.length > 0 ? (
-                        currentRecipes.map((item, index) => (
-                            <RecipeCard key={index} recipe={item} onView={handleViewRecipe} />
-                        ))
-                    ) : (
-                        <p className="notFound">No recipes found.</p>
-                    )
-                }
-            </div>
+
+            {/* PAGINATION */}
             <div className="paginationControls">
                 {currentPage > 1 && (
-                    <button onClick={handlePrevPage} className="paginationButton">← Prev</button>
+                    <button
+                        className="paginationButton"
+                        onClick={() => setCurrentPage(p => p - 1)}
+                    >
+                        ← Prev
+                    </button>
                 )}
-                {indexOfLastRecipe < (searchQuery ? filteredRecipes.length : Recipes.length) && (
-                    <button onClick={handleNextPage} className="paginationButton">Next →</button>
+
+                {indexOfLastRecipe < filteredRecipes.length && (
+                    <button
+                        className="paginationButton"
+                        onClick={() => setCurrentPage(p => p + 1)}
+                    >
+                        Next →
+                    </button>
                 )}
             </div>
 
-            {currentRecipe && <RecipeViewCard key={currentRecipe.name} recipe={currentRecipe} onBack={() => setCurrentRecipe(null)} />}
+            {/* PROJECT DETAIL MODAL */}
+            {currentRecipe && (
+                <RecipeViewCard
+                    recipe={currentRecipe}
+                    onBack={() => setCurrentRecipe(null)}
+                />
+            )}
         </>
-    )
+    );
 }

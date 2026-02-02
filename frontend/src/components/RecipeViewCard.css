@@ -1,89 +1,120 @@
-.viewContainer {
+/* BACKDROP */
+.viewOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid black;
-  border-radius: 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 0;
-  padding: 0;
-  background: rgba(0,0,0,0.5);
-  background: #fff;
-  z-index: 1000;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+
+  display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
-.viewImage img {
-  width: 275px;
-  height: 200px;
-  border-radius: 15px;
-  justify-content: center;
-  padding-top: 8px;
+/* MODAL */
+.viewContainer {
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(2, 6, 23, 0.98)
+  );
+
+  border-radius: 18px;
+  overflow-y: auto;
+  position: relative;
+
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
 }
-.viewImage img:hover{
-     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
-.viewButton{
+
+/* CLOSE BUTTON */
+.closeButton {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 50px;
-  height: 30px;
-  background-color: palevioletred;
-  color: white;
+  top: 16px;
+  right: 16px;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
   border: none;
-  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+
+  font-size: 1.1rem;
   cursor: pointer;
 }
-.viewButton:hover{
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  background-color: lightsalmon;
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
-.viewBody{
+/* IMAGE */
+.viewImage img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* BODY */
+.viewBody {
+  padding: 2rem;
+  text-align: center;
+}
+
+.viewName {
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.viewStatus {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+/* SECTIONS */
+.section {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.section h4 {
+  font-size: 1rem;
+  color: #f8fafc;
+  margin-bottom: 0.6rem;
+}
+
+/* TECH STACK */
+.techStack {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.viewHead{
-
-  margin-right: 100px;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.viewName{
-  font-size: 2em;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
-}
-.viewIngredients{
-  font-size: 1.5em;
-  color: black;
-  font-weight: 200px;
-  margin: 10px 0;
-  text-align: center;
-}
-.viewHead:hover{
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.viewProcess{
-  font-size: 1.5em;
-  color: black;
-  font-weight: 200px;
-  margin: 10px 0;
-  text-align: center;
+.techBadge {
+  padding: 6px 10px;
+  font-size: 0.75rem;
+
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+/* FEATURES */
+.featureList {
+  padding-left: 1.2rem;
+  color: #cbd5f5;
+}
+
+.featureList li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
