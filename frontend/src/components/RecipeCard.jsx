@@ -6,7 +6,7 @@ export default function RecipeCard(props) {
     return (
         <div className="cardContainer">
             <div className="cardImage">
-                <img src={recipe.image} alt={recipe.name} />
+                <img  alt={recipe.name} />
             </div>
 
             <div className="cardBody">

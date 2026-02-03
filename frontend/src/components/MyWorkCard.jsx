@@ -1,49 +1,64 @@
-import './MyWorkCard.css'
+import './MyWorkCard.css';
 
 export default function MyWorkCard(props) {
-
     const { recipe, onEdit, onDelete } = props;
 
-    if(!recipe){
-        return null;
-    }
+    if (!recipe) return null;
 
     return (
-        <div className='recipeCard'>
-            
-            <img src="/images/Dummy.jpeg" alt={recipe.dishName} className='recipeImage' />
+        <div className="projectCard">
+            <img
+                alt={recipe.dishName}
+                className="projectImage"
+            />
 
-            <div className='recipeNameContainer'>
-                <h2><b>{recipe.dishName}</b></h2>
-            </div>
-            
-            <div className='recipeDetails'>
-
-                <p><b><i>Time Taken: </i></b> {recipe.timeTaken} minutes only is needed to prepare this!</p>
-                
-                <p><b><i>Ingredients: </i></b> </p>
-
-                    <ul>
-                        {(Array.isArray(recipe.ingredients) ? recipe.ingredients : [recipe.ingredients]).map((item, i) => (
-                            <li key={i}>{item}</li>
-                        ))}
-                    </ul>
-                
-                <p><b><i>Process: </i></b></p>
-
-                <ol>
-                    {(Array.isArray(recipe.process) ? recipe.process : [recipe.process]).map((step, i) => (
-                            <li key={i}>{step}</li>
-                     ))}
-                </ol>
-
+            <div className="projectHeader">
+                <h3>{recipe.dishName}</h3>
+                <span className="projectStatus">
+                    {recipe.timeTaken}
+                </span>
             </div>
 
-            <div className='cardActions'>
-                <button onClick={() => onEdit(recipe)} className='actionButton'>Edit recipe</button>
-                <button onClick={() => onDelete(recipe)} className='actionButton deleteButton'>Delete recipe</button>
+            <div className="projectSection">
+                <h4>Tech Stack</h4>
+                <div className="techStack">
+                    {(Array.isArray(recipe.ingredients)
+                        ? recipe.ingredients
+                        : [recipe.ingredients]
+                    ).map((item, i) => (
+                        <span key={i} className="techBadge">
+                            {item}
+                        </span>
+                    ))}
+                </div>
             </div>
-            
+
+            <div className="projectSection">
+                <h4>Features / Implementation</h4>
+                <ul className="featureList">
+                    {(Array.isArray(recipe.process)
+                        ? recipe.process
+                        : [recipe.process]
+                    ).map((step, i) => (
+                        <li key={i}>{step}</li>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="cardActions">
+                <button
+                    onClick={() => onEdit(recipe)}
+                    className="actionButton"
+                >
+                    Edit
+                </button>
+                <button
+                    onClick={() => onDelete(recipe)}
+                    className="actionButton deleteButton"
+                >
+                    Delete
+                </button>
+            </div>
         </div>
-    )
+    );
 }

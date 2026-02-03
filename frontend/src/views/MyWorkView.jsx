@@ -1,54 +1,55 @@
-import './MyWorkView.css'
+import './MyWorkView.css';
 import MyWorkCard from '../components/MyWorkCard';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function MyWorkView() {
-    
     const navigate = useNavigate();
-    const [recipe, setRecipe] = useState([])
-    const [recipeName, setRecipeName] = useState('')
-    const [recipeTime, setRecipeTime] = useState('')
-    const [recipeSteps, setRecipeSteps] = useState('')
-    const [recipeIngredients, setRecipeIngredients] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [modalType, setModalType] = useState('create')
-    const [currentRecipe, setCurrentRecipe] = useState(null)
+
+    const [recipe, setRecipe] = useState([]);
+    const [recipeName, setRecipeName] = useState('');
+    const [recipeTime, setRecipeTime] = useState('');
+    const [recipeSteps, setRecipeSteps] = useState('');
+    const [recipeIngredients, setRecipeIngredients] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [modalType, setModalType] = useState('create');
+    const [currentRecipe, setCurrentRecipe] = useState(null);
 
     const getUser = () => {
         const userStr = localStorage.getItem('user');
         return userStr ? JSON.parse(userStr) : null;
-    };   
+    };
+
     const getConfig = () => {
         const user = getUser();
         return {
-             headers: {
-                        Authorization: `Bearer ${user.token || ''}`,
-             },
+            headers: {
+                Authorization: `Bearer ${user?.token || ''}`,
+            },
         };
     };
 
     useEffect(() => {
-        
         const getSpecificRecipes = async () => {
             const user = getUser();
-             
-                if(!user?.token) {
-                    setRecipe([]);
-                    return;
-                }
+            if (!user?.token) {
+                setRecipe([]);
+                return;
+            }
 
             try {
-               
-                const config = getConfig();
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/my`, config);
+                const res = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/recipes/my`,
+                    getConfig()
+                );
                 setRecipe(res?.data?.recipes || []);
             } catch (error) {
-                console.error('Failed to show recipes: ', error.message);
+                console.error('Failed to fetch projects:', error.message);
                 setRecipe([]);
             }
         };
+
         getSpecificRecipes();
     }, []);
 
@@ -56,171 +57,173 @@ export default function MyWorkView() {
         setModalType('create');
         setCurrentRecipe(null);
         setRecipeName('');
-        setShowModal(true)
-    }
+        setRecipeTime('');
+        setRecipeIngredients('');
+        setRecipeSteps('');
+        setShowModal(true);
+    };
 
     const handleEdit = (recipe) => {
         setModalType('edit');
-        setShowModal(true);
         setCurrentRecipe(recipe);
         setRecipeName(recipe.dishName);
         setRecipeTime(recipe.timeTaken);
-        setRecipeIngredients(Array.isArray(recipe.ingredients) ? recipe.ingredients.join(', ') : recipe.ingredients);
-        setRecipeSteps(Array.isArray(recipe.process) ? recipe.process.join(', ') : recipe.process);
-    }
+        setRecipeIngredients(
+            Array.isArray(recipe.ingredients)
+                ? recipe.ingredients.join(', ')
+                : recipe.ingredients
+        );
+        setRecipeSteps(
+            Array.isArray(recipe.process)
+                ? recipe.process.join(', ')
+                : recipe.process
+        );
+        setShowModal(true);
+    };
 
     const handleDelete = async (recipe) => {
         try {
-            const token = localStorage.getItem("user-access-token");
-
-            const headers = {
-                authorization: `Bearer ${token}`,
-            };
-
-            await axios.delete(`${import.meta.env.VITE_API_URL}/recipes/${recipe._id}`, { headers });
-            setRecipe(prev => prev.filter(r => r._id !== recipe._id))
+            const token = localStorage.getItem('user-access-token');
+            await axios.delete(
+                `${import.meta.env.VITE_API_URL}/recipes/${recipe._id}`,
+                { headers: { authorization: `Bearer ${token}` } }
+            );
+            setRecipe(prev => prev.filter(r => r._id !== recipe._id));
         } catch (error) {
-            console.error("Error in deleting: ", error);
+            console.error('Delete failed:', error);
         }
     };
 
     const handleSubmit = async () => {
-    if (!recipeName || !recipeTime || !recipeIngredients || !recipeSteps) {
-        alert("All fields are required.");
-        return;
-    }
+        if (!recipeName || !recipeTime || !recipeIngredients || !recipeSteps) {
+            alert('All fields are required.');
+            return;
+        }
 
-    // Convert to arrays if needed by backend
-    const payload = {
-        dishName: recipeName,
-        timeTaken: recipeTime,
-        ingredients: recipeIngredients.split(',').map(i => i.trim()),
-        process: recipeSteps.split(',').map(s => s.trim()),
-    };
-
-    try {
-        // Get token from user object in localStorage
-        const userStr = localStorage.getItem('user');
-        const user = userStr ? JSON.parse(userStr) : null;
-        const token = user?.token || '';
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        const payload = {
+            dishName: recipeName,
+            timeTaken: recipeTime,
+            ingredients: recipeIngredients.split(',').map(i => i.trim()),
+            process: recipeSteps.split(',').map(s => s.trim()),
         };
 
-        console.log('Payload:', payload);
-        console.log('Config:', config);
+        try {
+            const user = getUser();
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user?.token || ''}`,
+                },
+            };
 
-        if (currentRecipe && currentRecipe._id) {
-            const res = await axios.patch(`${import.meta.env.VITE_API_URL}/recipes/${currentRecipe._id}`, payload, config);
-            const updatedRecipe = res.data.updatedRecipe;
-            setRecipe(prev => prev.map(r => r._id === updatedRecipe._id ? updatedRecipe : r));
-            setCurrentRecipe(null);
-        } else {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/recipes`, payload, config);
-            console.log('New recipe response:', res.data);
-            const newRecipe = res.data.newRecipe;
-            setRecipe(prev => [...prev, newRecipe]);
+            if (currentRecipe?._id) {
+                const res = await axios.patch(
+                    `${import.meta.env.VITE_API_URL}/recipes/${currentRecipe._id}`,
+                    payload,
+                    config
+                );
+                setRecipe(prev =>
+                    prev.map(r =>
+                        r._id === res.data.updatedRecipe._id
+                            ? res.data.updatedRecipe
+                            : r
+                    )
+                );
+            } else {
+                const res = await axios.post(
+                    `${import.meta.env.VITE_API_URL}/recipes`,
+                    payload,
+                    config
+                );
+                setRecipe(prev => [...prev, res.data.newRecipe]);
+            }
+
+            setShowModal(false);
+        } catch (error) {
+            alert('Error saving project');
         }
-
-        setRecipeName('');
-        setRecipeTime('');
-        setRecipeIngredients('');
-        setRecipeSteps('');
-        setCurrentRecipe(null);
-        setShowModal(false);
-
-    } catch (error) {
-        // Log all possible error details for debugging
-        console.error('Submit failed:', error);
-        console.error('error.response:', error.response);
-        console.error('error.response.data:', error.response?.data);
-        console.error('error.message:', error.message);
-
-        // Try to extract a meaningful error message
-        let errorMsg = 'Unknown error';
-        if (error.response) {
-            // Try various places for error message
-            errorMsg =
-                error.response.data?.message ||
-                error.response.data?.error ||
-                error.response.data?.detail ||
-                JSON.stringify(error.response.data) ||
-                error.response.statusText ||
-                error.message;
-        } else {
-            errorMsg = error.message;
-        }
-        alert('Error: ' + errorMsg);
-    }
-};
-
-
-    const handleRecipes = () => {
-        navigate('/');
-    }
-
+    };
 
     return (
-        <>
-            <div id="ancestorContainer" className="ancestorContainer">
-                 
+        <div className="dashboardContainer">
+            {/* HEADER */}
+            <div className="dashboardHeader">
+                <button className="backButton" onClick={() => navigate('/')}>
+                    ← Back
+                </button>
+                <h1>My Projects</h1>
+                <button className="createButton" onClick={handleCreate}>
+                    + Add Project
+                </button>
+            </div>
 
-                <div id="header" className='header'>
-
-                    My Work
-                </div>
-                <button className='BackButton' onClick={handleRecipes}>Back</button>
-                <button onClick={handleCreate} className='createRecipeButton'>Create Recipe</button>
-
-
-                {Array.isArray(recipe) && recipe.length > 0 ? (
-                    
-                    recipe?.map((recipe) => (
-                        <MyWorkCard key={recipe._id} recipe={recipe} onEdit={handleEdit} onDelete={handleDelete} />
+            {/* PROJECT LIST */}
+            <div className="projectsGrid">
+                {recipe.length > 0 ? (
+                    recipe.map(item => (
+                        <MyWorkCard
+                            key={item._id}
+                            recipe={item}
+                            onEdit={handleEdit}
+                            onDelete={handleDelete}
+                        />
                     ))
                 ) : (
-                    <div id='noRecipes' className='noRecipes'>No Recipes yet created!</div>
-                )}
-                {showModal && (
-                    <div id='modalOverlay' className='modalOverlay'>
-                        <div id='modalContent' className='modalContent'>
-                            <h2>{modalType === 'edit' ? 'Edit Recipe' : 'Create Your Favourite Recipe'}</h2>
-                            <input
-                                type="text"
-                                value={recipeName}
-                                onChange={(e) => setRecipeName(e.target.value)}
-                                placeholder="Name of your recipe"
-                            />
-                            <br />
-                            <input
-                                type="text"
-                                value={recipeTime}
-                                onChange={(e) => setRecipeTime(e.target.value)}
-                                placeholder="Preparation time"
-                            />
-                            <br />
-                            <textarea
-                                value={recipeIngredients}
-                                onChange={(e) => setRecipeIngredients(e.target.value)}
-                                placeholder="Ingredients for the recipe"
-                            />
-                            <br />
-                            <textarea
-                                value={recipeSteps}
-                                onChange={(e) => setRecipeSteps(e.target.value)}
-                                placeholder="Enter the steps for the recipe"
-                            />
-                            <div id="modalButtons" className='modalButtons'>
-                                <button onClick={handleSubmit} id='modalButton' className='modalButton'>Save</button>
-                                <button onClick={() => setShowModal(false)} id='modalButton' className='modalButton'>Cancel</button>
-                            </div>
-                        </div>
+                    <div className="emptyState">
+                        You haven’t added any projects yet.
                     </div>
                 )}
             </div>
-        </>
-    )
+
+            {/* MODAL */}
+            {showModal && (
+                <div className="modalOverlay">
+                    <div className="modalContent">
+                        <h2>
+                            {modalType === 'edit'
+                                ? 'Edit Project'
+                                : 'Add New Project'}
+                        </h2>
+
+                        <input
+                            type="text"
+                            placeholder="Project title"
+                            value={recipeName}
+                            onChange={(e) => setRecipeName(e.target.value)}
+                        />
+
+                        <input
+                            type="text"
+                            placeholder="Status / Duration"
+                            value={recipeTime}
+                            onChange={(e) => setRecipeTime(e.target.value)}
+                        />
+
+                        <textarea
+                            placeholder="Tech stack (comma separated)"
+                            value={recipeIngredients}
+                            onChange={(e) =>
+                                setRecipeIngredients(e.target.value)
+                            }
+                        />
+
+                        <textarea
+                            placeholder="Project features / implementation"
+                            value={recipeSteps}
+                            onChange={(e) => setRecipeSteps(e.target.value)}
+                        />
+
+                        <div className="modalButtons">
+                            <button onClick={handleSubmit}>Save</button>
+                            <button
+                                className="secondary"
+                                onClick={() => setShowModal(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
