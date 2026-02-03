@@ -11,7 +11,7 @@
         "Score resume against job description",
         "Generate improvement suggestions"
       ],
-      "image": "/images/ai-resume.png"
+      "image": "https://placehold.co/600x400/020617/38bdf8?text=AI+Project"
     },
     {
       "id": 2,
@@ -24,7 +24,7 @@
         "Auto-fill government forms",
         "Export as PDF"
       ],
-      "image": "/images/voice-form.png"
+      "image": "https://placehold.co/600x400/020617/38bdf8?text=Hackathon+Build "
     },
     {
       "id": 3,
@@ -37,7 +37,7 @@
         "Admin dashboard",
         "CSV export"
       ],
-      "image": "/images/attendance.png"
+      "image": "https://placehold.co/600x400/020617/38bdf8?text=Backend+Service"
     },
     {
       "id": 4,
@@ -50,7 +50,7 @@
         "User dashboards",
         "Project sharing & viewing"
       ],
-      "image": "/images/projecthub.png"
+      "image": "https://placehold.co/600x400/020617/38bdf8?text=Web+App"
     }
   ]
 }

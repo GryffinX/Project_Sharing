@@ -8,6 +8,7 @@ export default function MyWorkCard(props) {
     return (
         <div className="projectCard">
             <img
+                src={"https://placehold.co/600x400/020617/38bdf8?text=Project+"}
                 alt={recipe.dishName}
                 className="projectImage"
             />

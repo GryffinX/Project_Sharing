@@ -6,7 +6,7 @@ export default function RecipeCard(props) {
     return (
         <div className="cardContainer">
             <div className="cardImage">
-                <img  alt={recipe.name} />
+                <img  src={"https://placehold.co/600x400/020617/38bdf8?text=Project+" + recipe.name} alt={recipe.name} />
             </div>
 
             <div className="cardBody">
