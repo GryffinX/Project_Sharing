@@ -25,7 +25,7 @@ exports.signup = async (req, res) => {
             password: hashedPassword
         });
         await user.save();
-        return res.status(201).send({ message: 'Successfully registered new user', user: { id: user._id, username: user.username } });
+        return res.status(201).send({ message: 'Successfully registered new user', user: { id: user._id, username: user.username, email: user.email } });
     } catch (error) {
         console.error('Error registering user:', error);
         return res.status(500).send({ error: 'Error with user details', details: error.message });
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
                 console.error('Error generating jwt:', error.message)
                 return res.status(500).send({ error: 'Login failed' })
             }
-            return res.status(200).send({ message: 'Successfully logged in', accessToken: token, user: { id: existingUser._id, username: existingUser.username } });
+            return res.status(200).send({ message: 'Successfully logged in', accessToken: token, user: { id: existingUser._id, username: existingUser.username, email: existingUser.email } });
         }
     )
 }

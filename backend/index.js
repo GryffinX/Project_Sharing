@@ -23,7 +23,7 @@ mongoConnection();
 
 app.use('/recipes',recipeRouter);
 app.use('/auth', authRouter);
-app.use('/users', authenticate, requiredRole(['admin']), userRouter);
+app.use('/user', authenticate, userRouter);
 
 app.get('/', (req,res) => {
     return res.status(200).send({message: "Server is successfully running"});

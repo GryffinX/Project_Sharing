@@ -2,55 +2,115 @@
   "recipes": [
     {
       "id": 1,
-      "name": "AI Resume Analyzer",
-      "preparationTime": "3 weeks",
-      "ingredients": ["React", "Node.js", "OpenAI API", "Tailwind"],
+      "name": "Directus",
+      "category": "Backend",
+      "preparationTime": "Data Platform",
+      "ingredients": ["Node.js", "Vue.js", "TypeScript", "SQL"],
       "process": [
-        "Upload resume as PDF",
-        "Analyze skills and keywords",
-        "Score resume against job description",
-        "Generate improvement suggestions"
+        "Instant REST and GraphQL API for any SQL database.",
+        "Beautiful no-code data studio for non-technical users.",
+        "Extensible through a modular internal architecture.",
+        "Perfect for headless CMS or internal business tools."
       ],
-      "image": "https://placehold.co/600x400/020617/38bdf8?text=AI+Project"
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/directus/directus",
+      "liveUrl": "https://directus.io/"
     },
     {
       "id": 2,
-      "name": "Voice-to-Form Platform",
-      "preparationTime": "Hackathon Project",
-      "ingredients": ["Python", "Whisper", "FastAPI", "React"],
+      "name": "Infisical",
+      "category": "Tooling",
+      "preparationTime": "Secret Management",
+      "ingredients": ["Next.js", "Node.js", "Go", "PostgreSQL"],
       "process": [
-        "Speech input in Indian languages",
-        "Convert voice to structured text",
-        "Auto-fill government forms",
-        "Export as PDF"
+        "Open-source secret management platform for teams.",
+        "Syncs environment variables across your entire stack.",
+        "End-to-end encryption for all sensitive data.",
+        "Infrastructure-as-code support with CLI and Terraform."
       ],
-      "image": "https://placehold.co/600x400/020617/38bdf8?text=Hackathon+Build "
+      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/Infisical/infisical",
+      "liveUrl": "https://infisical.com/"
     },
     {
       "id": 3,
-      "name": "Smart Attendance System",
-      "preparationTime": "2 months",
-      "ingredients": ["OpenCV", "Python", "Flask", "MongoDB"],
+      "name": "Budibase",
+      "category": "Web App",
+      "preparationTime": "Low-Code",
+      "ingredients": ["Svelte", "Node.js", "CouchDB", "Docker"],
       "process": [
-        "Face recognition via webcam",
-        "Real-time attendance marking",
-        "Admin dashboard",
-        "CSV export"
+        "Build internal tools in minutes with a visual builder.",
+        "Connects to MongoDB, PostgreSQL, and external APIs.",
+        "Features automated workflows and self-hosting options.",
+        "Optimized for high-performance business applications."
       ],
-      "image": "https://placehold.co/600x400/020617/38bdf8?text=Backend+Service"
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/Budibase/budibase",
+      "liveUrl": "https://budibase.com/"
     },
     {
       "id": 4,
-      "name": "ProjectHub (This Platform)",
-      "preparationTime": "In progress",
-      "ingredients": ["React", "Vite", "Express", "MongoDB"],
+      "name": "Umami",
+      "category": "Tooling",
+      "preparationTime": "Analytics",
+      "ingredients": ["Next.js", "Prisma", "Tailwind", "PostgreSQL"],
       "process": [
-        "Auth system",
-        "Project discovery page",
-        "User dashboards",
-        "Project sharing & viewing"
+        "Privacy-focused, self-hosted web analytics.",
+        "Simple, clean alternative to Google Analytics.",
+        "Collects data without using cookies or invading privacy.",
+        "Extremely lightweight script for minimal page impact."
       ],
-      "image": "https://placehold.co/600x400/020617/38bdf8?text=Web+App"
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/umami-software/umami",
+      "liveUrl": "https://umami.is/"
+    },
+    {
+      "id": 5,
+      "name": "Logseq",
+      "category": "Web App",
+      "preparationTime": "Knowledge Base",
+      "ingredients": ["ClojureScript", "React", "DataScript"],
+      "process": [
+        "A privacy-first, open-source knowledge management tool.",
+        "Uses local Markdown and Org-mode files for storage.",
+        "Features backlinking, page aliases, and powerful search.",
+        "Supports a vast plugin ecosystem for customization."
+      ],
+      "image": "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/logseq/logseq",
+      "liveUrl": "https://logseq.com/"
+    },
+    {
+      "id": 7,
+      "name": "AppFlowy",
+      "category": "Mobile",
+      "preparationTime": "Workspace",
+      "ingredients": ["Flutter", "Rust", "SQLite"],
+      "process": [
+        "The open-source alternative to Notion.",
+        "Built with Flutter and Rust for cross-platform speed.",
+        "Provides total control over your data and privacy.",
+        "Features wikis, databases, and kanban boards."
+      ],
+      "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/AppFlowy-IO/AppFlowy",
+      "liveUrl": "https://appflowy.io/"
+    },
+    {
+      "id": 8,
+      "name": "Focalboard",
+      "category": "Web App",
+      "preparationTime": "Project Management",
+      "ingredients": ["React", "Go", "PostgreSQL"],
+      "process": [
+        "Self-hosted project management tool (Trello/Asana alt).",
+        "Helps teams organize tasks with a visual dashboard.",
+        "Part of the Mattermost ecosystem for seamless integration.",
+        "Supports multiple views including Board, Table, and Gallery."
+      ],
+      "image": "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/mattermost/focalboard",
+      "liveUrl": "https://www.focalboard.com/"
     }
   ]
 }

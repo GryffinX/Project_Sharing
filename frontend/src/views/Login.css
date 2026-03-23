@@ -1,138 +1,110 @@
-.loginBody {
-    min-height: 100vh;
-    width: 100%;
-    display: grid;
-    place-items: center;
-
-    /* Layered gradient for depth */
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(56, 189, 248, 0.12),
-            transparent 45%
-        ),
-        linear-gradient(
-            135deg,
-            #020617,
-            #020617,
-            #0f172a
-        );
-
-    font-family: 'Inter', system-ui, sans-serif;
+.auth-v3 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-darker);
+  position: relative;
+  overflow: hidden;
 }
 
-
-.loginCard {
-    background: linear-gradient(
-        180deg,
-        rgba(15, 23, 42, 0.9),
-        rgba(2, 6, 23, 0.95)
-    );
-
-    padding: 3rem 2.75rem;
-    width: 420px;
-    border-radius: 16px;
-
-    box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    backdrop-filter: blur(6px);
+.auth-card-v3 {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  padding: 3rem;
+  border-radius: 32px;
+  position: relative;
 }
 
-
-.loginCard::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #38bdf8, transparent);
-    opacity: 0.08;
-    z-index: -1;
+.auth-back-v3 {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
 }
 
-
-
-.loginHeader {
-    font-size: 1.7rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-    color: #ffffff;
+.auth-header-v3 {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-
-.loginSubtext {
-    color: #94a3b8;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-    text-align: center;
+.auth-logo-v3 {
+  display: inline-flex;
+  padding: 1rem;
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-primary);
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
 }
 
-
-.form {
-    width: 100%;
-    max-width: 320px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
+.auth-header-v3 h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 
-
-.form input {
-    width: 100%;
-    padding: 12px 14px;
-
-    background: rgba(2, 6, 23, 0.85);
-    border: 1px solid #1e293b;
-    border-radius: 8px;
-
-    color: #f8fafc;
-    font-size: 0.95rem;
+.auth-header-v3 p {
+  color: var(--text-muted);
 }
 
-
-.form input:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+.auth-form-v3 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-
-.form input::placeholder {
-    color: #64748b;
+.ws-field {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 1.25rem;
+  border-radius: 14px;
 }
 
-.form button {
-    background: linear-gradient(
-        135deg,
-        #38bdf8,
-        #0ea5e9
-    );
-    color: #020617;
+.ws-field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-family: inherit;
 }
 
-.form button:hover {
-    filter: brightness(1.05);
+.ws-field input:focus {
+  outline: none;
 }
 
-
-.loginFooter {
-    margin-top: 1.2rem;
-    font-size: 0.85rem;
-    color: #94a3b8;
+.auth-btn-v3 {
+  background: white;
+  color: black;
+  border: none;
+  padding: 1rem;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s;
 }
 
-.loginFooter a {
-    color: #38bdf8;
-    text-decoration: none;
+.auth-btn-v3:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
 }
 
-.loginFooter a:hover {
-    text-decoration: underline;
+.auth-foot-v3 {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.auth-foot-v3 a {
+  color: var(--accent-primary);
+  font-weight: 700;
 }

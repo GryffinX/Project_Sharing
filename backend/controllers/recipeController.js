@@ -99,7 +99,7 @@ exports.getUserRecipes = async (req, res) => {
 }
 
 exports.createRecipe = async (req, res) => {
-    let { dishName, timeTaken, ingredients, process } = req.body;
+    let { dishName, timeTaken, ingredients, process, image, liveUrl, githubUrl } = req.body;
 
     const { parsedIngredients, parsedProcess } = parseRecipeFields({ ingredients, process }) 
 
@@ -113,6 +113,9 @@ exports.createRecipe = async (req, res) => {
             timeTaken,
             ingredients: parsedIngredients,
             process: parsedProcess,
+            image: image || undefined,
+            liveUrl: liveUrl || "",
+            githubUrl: githubUrl || "",
             userID: req.user.id,
         });
         const savedRecipe = await newRecipe.save();
@@ -129,11 +132,14 @@ exports.editRecipe = async (req, res) => {
         return res.status(400).send({ error: 'Invalid recipe ID format.' });
     }
 
-    let { dishName, timeTaken, ingredients, process } = req.body;
+    let { dishName, timeTaken, ingredients, process, image, liveUrl, githubUrl } = req.body;
 
     const updateData = {};
     if (dishName !== undefined) updateData.dishName = dishName;
     if (timeTaken !== undefined) updateData.timeTaken = timeTaken;
+    if (image !== undefined) updateData.image = image;
+    if (liveUrl !== undefined) updateData.liveUrl = liveUrl;
+    if (githubUrl !== undefined) updateData.githubUrl = githubUrl;
     if (ingredients !== undefined) {
         updateData.ingredients = typeof ingredients === 'string'
             ? ingredients.split(',').map(i => i.trim()).filter(i => i.length > 0)
