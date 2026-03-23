@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Directus",
       "category": "Backend",
-      "preparationTime": "Data Platform",
+      "preparationTime": "3 months",
       "ingredients": ["Node.js", "Vue.js", "TypeScript", "SQL"],
       "process": [
         "Instant REST and GraphQL API for any SQL database.",
@@ -20,7 +20,7 @@
       "id": 2,
       "name": "Infisical",
       "category": "Tooling",
-      "preparationTime": "Secret Management",
+      "preparationTime": "1 month",
       "ingredients": ["Next.js", "Node.js", "Go", "PostgreSQL"],
       "process": [
         "Open-source secret management platform for teams.",
@@ -36,7 +36,7 @@
       "id": 3,
       "name": "Budibase",
       "category": "Web App",
-      "preparationTime": "Low-Code",
+      "preparationTime": "1.5 months",
       "ingredients": ["Svelte", "Node.js", "CouchDB", "Docker"],
       "process": [
         "Build internal tools in minutes with a visual builder.",
@@ -52,7 +52,7 @@
       "id": 4,
       "name": "Umami",
       "category": "Tooling",
-      "preparationTime": "Analytics",
+      "preparationTime": "1 month",
       "ingredients": ["Next.js", "Prisma", "Tailwind", "PostgreSQL"],
       "process": [
         "Privacy-focused, self-hosted web analytics.",
@@ -68,7 +68,7 @@
       "id": 5,
       "name": "Logseq",
       "category": "Web App",
-      "preparationTime": "Knowledge Base",
+      "preparationTime": "2 months",
       "ingredients": ["ClojureScript", "React", "DataScript"],
       "process": [
         "A privacy-first, open-source knowledge management tool.",
@@ -84,7 +84,7 @@
       "id": 7,
       "name": "AppFlowy",
       "category": "Mobile",
-      "preparationTime": "Workspace",
+      "preparationTime": "2.5 months",
       "ingredients": ["Flutter", "Rust", "SQLite"],
       "process": [
         "The open-source alternative to Notion.",
@@ -100,7 +100,7 @@
       "id": 8,
       "name": "Focalboard",
       "category": "Web App",
-      "preparationTime": "Project Management",
+      "preparationTime": "3 months",
       "ingredients": ["React", "Go", "PostgreSQL"],
       "process": [
         "Self-hosted project management tool (Trello/Asana alt).",
