@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: '*'
+    origin: "https://project-sharing-nine.vercel.app/"
 }));
 
 const PORT = process.env.PORT || 3000;
